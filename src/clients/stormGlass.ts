@@ -1,6 +1,6 @@
 import { InternalError } from '@src/utils/errors/internal-error';
-import { AxiosStatic } from 'axios';
 import config, { IConfig } from 'config';
+import * as HTTPUtil from '@src/utils/Request';
 
 export interface StormGlassSource {
   [key: string]: number;
@@ -60,7 +60,7 @@ export class StormGlass {
   readonly stormGlassAPISource = 
     'noaa';
     
-  constructor(protected request: AxiosStatic) {}
+  constructor(protected request = new HTTPUtil.Request()) {}
 
   public async fetchPoints(lat: number, lon: number): Promise<ForecastPoint[]> {
     try {
